@@ -1,0 +1,247 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ribot">
+    <!-- Start GZ or Ignition depending on ROS 2 Version -->
+    <xacro:arg name="is_ignition" default="true"/>
+  
+    <xacro:include filename="$(find ribot_description)/urdf/ribot_gazebo.xacro" />
+
+    <xacro:include filename="$(find ribot_description)/urdf/ribot_ros2_control.xacro" />
+
+
+    <xacro:property name="PI" value="3.14159265359" />
+    <xacro:property name="effort" value="30.0" />
+    <xacro:property name="velocity" value="10.0" />
+
+    <xacro:macro name="default_inertial" params="mass">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="${mass}" />
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                     iyy="1.0" iyz="0.0"
+                     izz="1.0" />
+        </inertial>
+    </xacro:macro>
+    
+    <!-- links -->
+    <link name="world"/>
+    
+    <link name="base_link">
+        <xacro:default_inertial mass="1.0"/>
+        <visual>
+            <origin xyz="0.0198 0.02131 -0.0755" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/link1.stl" scale = "0.01 0.01 0.01"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.592156862745098 0.666666666666667 0.682352941176471 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0198 0.02131 -0.0755" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/link1.stl" scale = "0.01 0.01 0.01"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="link2">
+        <xacro:default_inertial mass="0.1"/>
+        <visual>
+            <origin xyz="0.01980 0.04231 -0.1566" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/link2.stl" scale = "0.01 0.01 0.01"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.592156862745098 0.666666666666667 0.682352941176471 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.01980 0.04231 -0.1566" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/link2.stl" scale = "0.01 0.01 0.01"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="link3">
+        <xacro:default_inertial mass="0.1"/>
+        <visual>
+            <origin xyz="-0.00536 0.04181 -0.17109" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/link3.stl" scale = "0.01 0.01 0.01"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.592156862745098 0.666666666666667 0.682352941176471 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="-0.00536 0.04181 -0.17109" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/link3.stl" scale = "0.01 0.01 0.01"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="link4">
+        <xacro:default_inertial mass="0.4"/>
+        <visual>
+            <origin xyz="-0.00590 0.03944 -0.27507" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/link4.stl" scale = "0.01 0.01 0.01"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.592156862745098 0.666666666666667 0.682352941176471 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="-0.00590 0.03944 -0.27507" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/link4.stl" scale = "0.01 0.01 0.01"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="link5">
+        <xacro:default_inertial mass="0.1"/>
+        <visual>
+            <origin xyz="-0.00590 0.15744 -0.27544" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/link5.stl" scale = "0.01 0.01 0.01"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.592156862745098 0.666666666666667 0.682352941176471 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="-0.00590 0.15744 -0.27544" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/link5.stl" scale = "0.01 0.01 0.01" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="link6">
+        <xacro:default_inertial mass="0.05"/>
+        <visual>
+            <origin xyz="0.01003 0.22956 -0.27903" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/gripper_dummy.stl" scale = "0.01 0.01 0.01"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.592156862745098 0.666666666666667 0.682352941176471 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.01003 0.22956 -0.27903" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/gripper_dummy.stl" scale = "0.01 0.01 0.01"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="right_gripper">
+        <xacro:default_inertial mass="0.01"/>
+        <visual> 
+            <origin xyz="0.02450 0.25360 -0.28115" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/right_gripper.stl" scale = "0.01 0.01 0.01"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.592156862745098 0.666666666666667 0.682352941176471 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.02450 0.25360 -0.28115" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/right_gripper.stl" scale = "0.01 0.01 0.01"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="left_gripper">
+        <xacro:default_inertial mass="0.01"/>
+        <visual>
+            <origin xyz="-0.00329 0.25360 -0.28162" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/left_gripper.stl" scale = "0.01 0.01 0.01"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.592156862745098 0.666666666666667 0.682352941176471 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="-0.00329 0.25360 -0.28162" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://ribot_description/meshes/left_gripper.stl" scale = "0.01 0.01 0.01"/>
+            </geometry>
+        </collision>
+    </link> 
+
+    <!-- joints -->
+    <joint name="virtual_joint" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="joint1" type="revolute">
+        <parent link="base_link"/>
+        <child link="link2"/>
+        <axis xyz="0 0 1"/>
+        <origin xyz="0 0 0.0811" rpy="0 0 0"/>
+        <limit effort="10.0" velocity="5.0" lower="-1.57" upper="1.57"/> <!-- 각도 제한 추가 -->
+    </joint>
+
+    <joint name="joint2" type="revolute">
+        <parent link="link2"/>
+        <child link="link3"/>
+        <axis xyz="1 0 0"/>
+        <origin xyz="0.02516 0.00050 0.01449" rpy="0 0 0"/>
+        <limit effort="10.0" velocity="5.0" lower="-1.57" upper="1.57"/> <!-- 각도 제한 추가 -->
+    </joint>
+
+    <joint name="joint3" type="revolute">
+        <parent link="link3"/>
+        <child link="link4"/>
+        <axis xyz="1 0 0"/>
+        <origin xyz="0.00054 0.00237 0.10398" rpy="0 0 0"/>
+        <limit effort="10.0" velocity="5.0" lower="-1.57" upper="1.57"/> <!-- 각도 제한 추가 -->
+    </joint>
+
+    <joint name="joint4" type="revolute">
+        <parent link="link4"/>
+        <child link="link5"/>
+        <axis xyz="1 0 0"/>
+        <origin xyz="0 -0.1180 -0.00037" rpy="0 0 0"/>
+        <limit effort="10.0" velocity="5.0" lower="-1.57" upper="1.57"/> <!-- 각도 제한 추가 -->
+    </joint>
+
+    <joint name="joint5" type="revolute">
+        <parent link="link5"/>
+        <child link="link6"/>
+        <axis xyz="0 1 0"/>
+        <origin xyz="-0.01615 -0.07220 0" rpy="0 0 0"/>
+        <limit effort="10.0" velocity="5.0" lower="-1.57" upper="1.57"/> <!-- 각도 제한 추가 -->
+    </joint>
+
+
+    <joint name ="joint6" type="revolute">
+        <parent link="link6"/>
+        <child link = "right_gripper"/>
+        <origin xyz=" -0.01323 -0.02411 0.00175"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-${PI / 2}" upper="0.0" 
+               effort="${effort}" velocity="${velocity}"/>
+    </joint>
+
+    <joint name ="joint7" type="revolute">
+        <parent link="link6"/>
+        <child link = "left_gripper"/>
+        <origin xyz="0.01482 -0.02402 0.00175"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="0.0" upper="${PI / 2}" 
+               effort="${effort}" velocity="${velocity}"/>
+        <mimic joint="joint6" multiplier="-1"/>
+    </joint>
+
+</robot>
